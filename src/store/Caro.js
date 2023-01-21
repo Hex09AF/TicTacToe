@@ -1,11 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import {
-  INIT_HISTORY,
-  PLAYER_ONE_ICON,
-  PLAYER_TWO_ICON,
-} from "../constant/game";
+import { INIT_HISTORY, PLAYER_MIN, PLAYER_MAX } from "../constant/game";
 import { calculateWinner } from "../helper";
-import minimax from "./Bot";
+import { findBest } from "./Bot";
 
 class Caro {
   constructor(row, col, history) {
@@ -26,7 +22,7 @@ class Caro {
   }
 
   get next() {
-    return this.step % 2 ? PLAYER_ONE_ICON : PLAYER_TWO_ICON;
+    return this.step % 2 ? PLAYER_MAX : PLAYER_MIN;
   }
 
   /**
@@ -52,18 +48,17 @@ class Caro {
     this.step = currentHistory.length;
     localStorage.setItem("HISTORY", JSON.stringify(this.history));
     if (isBot) {
-      let x = minimax(newSquares, PLAYER_TWO_ICON, 5, { row: i, col: j });
+      let x = findBest(newSquares, PLAYER_MIN, 8, { row: i, col: j });
       console.log(x);
-      if (x.bestMove.row != -1 && x.bestMove.col != -1)
-        this.handlePlay(x.bestMove.row, x.bestMove.col, false);
+      if (x.row !== -1 && x.col !== -1) this.handlePlay(x.row, x.col, false);
     }
   }
 }
 
 const store = new Caro(
-  5,
-  5,
-  JSON.parse(localStorage.getItem("HISTORY")) || INIT_HISTORY(5, 5)
+  3,
+  3,
+  JSON.parse(localStorage.getItem("HISTORY")) || INIT_HISTORY(3, 3)
 );
 
 export default store;

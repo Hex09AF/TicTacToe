@@ -6,5 +6,5 @@ export const INIT_HISTORY = (row, col) => [
   },
 ];
 
-export const PLAYER_ONE_ICON = "X";
-export const PLAYER_TWO_ICON = "O";
+export const PLAYER_MAX = "X";
+export const PLAYER_MIN = "O";
