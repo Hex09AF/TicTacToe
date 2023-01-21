@@ -1,16 +1,15 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 import { Board } from "../";
-import { useGame } from "../../hooks";
+import GameContext from "../../context";
+const Game = observer(() => {
+  const store = useContext(GameContext);
 
-const Game = () => {
-  const { history, step, jumpTo, handlePlay, next, winner, currentSquares } =
-    useGame();
-
-  const moves = history.map((step, move) => {
+  const moves = store.history.map((step, move) => {
     const desc = move ? "Go to move #" + move : "Go to game start";
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
+        <button onClick={() => store.jumpTo(move)}>{desc}</button>
       </li>
     );
   });
@@ -19,11 +18,12 @@ const Game = () => {
     <div className="game">
       <div className="game-board">
         <Board
-          squares={currentSquares}
-          handlePlay={handlePlay}
-          step={step}
-          history={history}
-          {...{ handlePlay, next, winner }}
+          squares={store.currentSquares}
+          handlePlay={store.handlePlay}
+          step={store.step}
+          history={store.history}
+          next={store.next}
+          winner={store.winner}
         />
       </div>
       <div className="game-info">
@@ -32,6 +32,6 @@ const Game = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Game;

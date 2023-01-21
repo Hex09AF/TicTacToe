@@ -1,6 +1,8 @@
-export const INIT_HISTORY = [
+export const INIT_HISTORY = (row, col) => [
   {
-    squares: Array(9).fill(null),
+    squares: Array.from({ length: row }, () =>
+      Array.from({ length: col }, () => null)
+    ),
   },
 ];
 

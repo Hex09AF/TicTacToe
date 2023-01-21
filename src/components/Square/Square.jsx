@@ -1,12 +1,8 @@
 import React from "react";
 
-// props => obj
-// value, isOdd => props.value, props.isOdd
-// {value, isOdd}
-
-const Square = ({ value, isOdd, onClick }) => {
+const Square = ({ value, onClick }) => {
   return (
-    <button className={`square ${isOdd}`} onClick={onClick}>
+    <button className={`square`} onClick={onClick}>
       {value}
     </button>
   );
