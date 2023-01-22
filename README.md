@@ -24,3 +24,9 @@ Become observable so that MobX can track all the changes that are being made
 
 
 - Actions
+
+# Todo
+- Negamax, Negascout for finding next move faster than minimax algorithm
+- Tranposition table for cache
+- Heuristic function to calculate score more efficient
+- Optimize candidate moves to reduce the complexity
